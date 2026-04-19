@@ -30,6 +30,7 @@ Docker Compose est installe et la commande docker compose est disponible.
 
 Capture a inserer:
 ![alt text](image.png)
+Legende: Verification de l'installation Docker Compose avec la commande docker compose version.
 
 ## Partie 2 - Orchestration avec docker-compose
 
@@ -48,6 +49,7 @@ Le service db est construit avec un Dockerfile dedie:
 - Script init: articles.sql copie dans /docker-entrypoint-initdb.d
 
 ![alt text](image-1.png)
+Legende: Arborescence du projet (sources/app, sources/db, Dockerfile et docker-compose.yml).
 
 ### Explication du fichier docker-compose.yml
 Le fichier orchestre deux services sur le meme reseau bridge app_net:
@@ -68,6 +70,7 @@ Le fichier orchestre deux services sur le meme reseau bridge app_net:
   - db_data
 
 ![alt text](image-2.png)
+Legende: Contenu du fichier docker-compose.yml (services app et db, reseau et volume).
 
 ### Changement dans db-config.php
 Le host de connexion a ete change de localhost vers db:
@@ -80,6 +83,7 @@ Explication:
 - app se connecte donc a db via le reseau Docker.
 
 ![alt text](image-3.png)
+Legende: Fichier db-config.php avec host=db pour la connexion inter-conteneurs.
 
 ### Demarrage
 Commande executee:
@@ -89,7 +93,9 @@ Verification:
 - docker compose ps
 
 ![alt text](image-4.png)
+Legende: Execution de docker compose up -d --build pour creer et demarrer les conteneurs.
 ![alt text](image-5.png)
+Legende: Etat des services via docker compose ps (app Up et db Up/healthy).
 
 ## II. Test de la page web
 URL testee:
@@ -99,6 +105,7 @@ Resultat:
 - La page Articles s'affiche correctement.
 
 ![alt text](image-6.png)
+Legende: Affichage de la page web Articles sur http://localhost:8080.
 
 ## III. Ajout d'un article et verification
 Etapes:
@@ -110,7 +117,9 @@ Resultat:
 - L'article est bien ajoute et affiche.
 
 ![alt text](image-8.png)
+Legende: Formulaire de nouvel article rempli (titre, auteur, contenu).
 ![alt text](image-7.png)
+Legende: Verification de l'ajout de l'article dans la liste.
 
 ## IV. Adresses IP des conteneurs et relation avec app_net
 Commandes:
@@ -133,7 +142,9 @@ Explication de la relation avec app_net:
 - app_net isole ce trafic du reste de l'hote.
 
 ![alt text](image-9.png)
+Legende: Adresses IP des conteneurs obtenues avec docker inspect.
 ![alt text](image-10.png)
+Legende: Details du reseau app_net obtenus avec docker network inspect.
 
 ## Conclusion
 Ce TP a permis de:
