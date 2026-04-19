@@ -16,14 +16,20 @@
 ## Partie 1 - Installation de Docker Compose
 ### Commandes utilisees
 - sudo apt-get update
-- sudo apt-get install docker-compose-plugin
+- sudo apt-get install docker-compose-v2
+- docker compose version
+
+Alternative (si le paquet n'existe pas dans les depots):
+- mkdir -p ~/.docker/cli-plugins
+- curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+- chmod +x ~/.docker/cli-plugins/docker-compose
 - docker compose version
 
 ### Verification
 Docker Compose est installe et la commande docker compose est disponible.
 
 Capture a inserer:
-![Capture 01 - docker compose version](captures/01-docker-compose-version.png)
+![alt text](image.png)
 
 ## Partie 2 - Orchestration avec docker-compose
 
@@ -41,8 +47,7 @@ Le service db est construit avec un Dockerfile dedie:
 - Base image: mysql:5.7
 - Script init: articles.sql copie dans /docker-entrypoint-initdb.d
 
-Capture a inserer:
-![Capture 02 - arborescence du projet](captures/02-arborescence-projet.png)
+![alt text](image-1.png)
 
 ### Explication du fichier docker-compose.yml
 Le fichier orchestre deux services sur le meme reseau bridge app_net:
@@ -62,8 +67,7 @@ Le fichier orchestre deux services sur le meme reseau bridge app_net:
 - volume:
   - db_data
 
-Capture a inserer:
-![Capture 03 - docker-compose.yml](captures/03-docker-compose-yml.png)
+![alt text](image-2.png)
 
 ### Changement dans db-config.php
 Le host de connexion a ete change de localhost vers db:
@@ -75,8 +79,7 @@ Explication:
 - le nom de service db devient un nom DNS interne sur app_net.
 - app se connecte donc a db via le reseau Docker.
 
-Capture a inserer:
-![Capture 04 - db-config.php host db](captures/04-db-config-host-db.png)
+![alt text](image-3.png)
 
 ### Demarrage
 Commande executee:
@@ -85,9 +88,8 @@ Commande executee:
 Verification:
 - docker compose ps
 
-Capture a inserer:
-![Capture 05 - docker compose up](captures/05-compose-up.png)
-![Capture 06 - docker compose ps](captures/06-compose-ps.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
 
 ## II. Test de la page web
 URL testee:
@@ -96,8 +98,7 @@ URL testee:
 Resultat:
 - La page Articles s'affiche correctement.
 
-Capture a inserer:
-![Capture 07 - page accueil/articles](captures/07-page-web.png)
+![alt text](image-6.png)
 
 ## III. Ajout d'un article et verification
 Etapes:
@@ -108,9 +109,8 @@ Etapes:
 Resultat:
 - L'article est bien ajoute et affiche.
 
-Captures a inserer:
-![Capture 08 - formulaire rempli](captures/08-formulaire-rempli.png)
-![Capture 09 - article ajoute](captures/09-article-ajoute.png)
+![alt text](image-8.png)
+![alt text](image-7.png)
 
 ## IV. Adresses IP des conteneurs et relation avec app_net
 Commandes:
@@ -132,9 +132,8 @@ Explication de la relation avec app_net:
 - le service app joint db par son nom DNS db et non par localhost.
 - app_net isole ce trafic du reste de l'hote.
 
-Capture a inserer:
-![Capture 10 - docker inspect IP](captures/10-docker-inspect-ip.png)
-![Capture 11 - docker network inspect](captures/11-network-inspect.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
 
 ## Conclusion
 Ce TP a permis de:
@@ -143,15 +142,4 @@ Ce TP a permis de:
 - valider la communication reseau inter-conteneurs via app_net,
 - verifier l'ajout d'articles avec persistance des donnees.
 
-## Capture generale pour le depot
-Inserer ici une capture finale qui montre en meme temps:
-- docker compose ps avec app Up et db Up (healthy)
-- le navigateur sur la page Articles avec un article present
-- optionnel: sortie docker inspect des IP
 
-![Capture 12 - capture generale depot](captures/12-capture-generale-depot.png)
-
-## Instructions export PDF
-- Ouvrir ce fichier Markdown dans VS Code.
-- Exporter en PDF avec une extension Markdown PDF ou via impression PDF.
-- Deposer le PDF final sur la plateforme demandee.
