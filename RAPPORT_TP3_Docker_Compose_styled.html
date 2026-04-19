@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapport TP3 - Docker Compose</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+
+    :root {
+      --bg: #f4f7fb;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --brand: #0f766e;
+      --brand-soft: #ccfbf1;
+      --line: #d1d5db;
+      --title: #0b3a53;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Noto Sans", "DejaVu Sans", sans-serif;
+      color: var(--text);
+      background: white;
+      line-height: 1.45;
+      font-size: 11.2pt;
+    }
+
+    .page {
+      background: var(--paper);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .hero {
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #d1fae5 0%, #bfdbfe 100%);
+      border: 1px solid #a7f3d0;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 22pt;
+      color: var(--title);
+      letter-spacing: 0.2px;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      color: #164e63;
+      font-size: 10.5pt;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      margin: 12px 0 18px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .meta div { font-size: 10.5pt; }
+    .meta strong { color: #111827; }
+
+    h2 {
+      margin: 18px 0 8px;
+      padding-left: 10px;
+      border-left: 4px solid var(--brand);
+      color: #0f172a;
+      font-size: 14.5pt;
+    }
+
+    h3 {
+      margin: 12px 0 6px;
+      color: #0f172a;
+      font-size: 12pt;
+    }
+
+    p, li { color: var(--text); }
+    ul { margin: 5px 0 8px 20px; }
+
+    .card {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 8px 0;
+    }
+
+    .cmd {
+      margin: 6px 0;
+      background: #0b1220;
+      color: #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: "Cascadia Mono", "Consolas", monospace;
+      font-size: 9.8pt;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    figure {
+      margin: 10px 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      overflow: hidden;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    figure img {
+      width: 100%;
+      display: block;
+      max-height: 340px;
+      object-fit: contain;
+      background: #f8fafc;
+    }
+
+    figcaption {
+      padding: 8px 10px;
+      font-size: 9.8pt;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #f9fafb;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card, .cmd, .meta, .hero {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    h2, h3 {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    @media print {
+      body { background: white; }
+      .page { border: none; }
+      a { color: inherit; text-decoration: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      figure img { max-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Rapport TP3 - Orchestration avec Docker Compose</h1>
+      <p>Cloud Computing et Virtualisation - M1 SSII</p>
+    </section>
+
+    <section class="meta">
+      <div><strong>Etablissement:</strong> Institut Superieur d'Informatique</div>
+      <div><strong>Module:</strong> Cloud Computing et Virtualisation</div>
+      <div><strong>Enseignant:</strong> Safa Rejichi</div>
+      <div><strong>Etudiant:</strong> Talel Chaanbi</div>
+      <div><strong>Date:</strong> 19/04/2026</div>
+    </section>
+
+    <h2>Objectifs</h2>
+    <div class="card">
+      <ul>
+        <li>Manipuler Docker Compose.</li>
+        <li>Orchestrer deux services: Application Web et Base de donnees.</li>
+      </ul>
+    </div>
+
+    <h2>Partie 1 - Installation de Docker Compose</h2>
+    <h3>Commandes utilisees</h3>
+    <div class="cmd">sudo apt-get update
+sudo apt-get install docker-compose-v2
+docker compose version</div>
+
+    <h3>Alternative manuelle (si le paquet est indisponible)</h3>
+    <div class="cmd">mkdir -p ~/.docker/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
+docker compose version</div>
+
+    <figure>
+      <img src="image.png" alt="verification installation docker compose" />
+      <figcaption>Legende: Verification de l'installation Docker Compose avec la commande docker compose version.</figcaption>
+    </figure>
+
+    <h2>Partie 2 - Orchestration avec Docker Compose</h2>
+
+    <h3>Creation et demarrage des conteneurs</h3>
+    <div class="card">
+      <p>Arborescence attendue:</p>
+      <ul>
+        <li>sources/app/db-config.php</li>
+        <li>sources/app/index.php</li>
+        <li>sources/app/validation.php</li>
+        <li>sources/db/articles.sql</li>
+        <li>sources/db/Dockerfile</li>
+        <li>docker-compose.yml</li>
+      </ul>
+    </div>
+
+    <figure>
+      <img src="image-1.png" alt="arborescence projet" />
+      <figcaption>Legende: Arborescence du projet (sources/app, sources/db, Dockerfile et docker-compose.yml).</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image-2.png" alt="contenu docker compose yml" />
+      <figcaption>Legende: Contenu du fichier docker-compose.yml (services app et db, reseau et volume).</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image-3.png" alt="db config host db" />
+      <figcaption>Legende: Fichier db-config.php avec host=db pour la connexion inter-conteneurs.</figcaption>
+    </figure>
+
+    <div class="grid-2">
+      <figure>
+        <img src="image-4.png" alt="docker compose up build" />
+        <figcaption>Legende: Execution de docker compose up -d --build pour creer et demarrer les conteneurs.</figcaption>
+      </figure>
+      <figure>
+        <img src="image-5.png" alt="docker compose ps" />
+        <figcaption>Legende: Etat des services via docker compose ps (app Up et db Up/healthy).</figcaption>
+      </figure>
+    </div>
+
+    <h3>Test de la page web</h3>
+    <div class="card">
+      <p>URL testee: http://localhost:8080</p>
+      <p>Resultat: la page Articles s'affiche correctement.</p>
+    </div>
+
+    <figure>
+      <img src="image-6.png" alt="page web articles" />
+      <figcaption>Legende: Affichage de la page web Articles sur http://localhost:8080.</figcaption>
+    </figure>
+
+    <h3>Ajout d'un article</h3>
+    <div class="grid-2">
+      <figure>
+        <img src="image-8.png" alt="formulaire rempli" />
+        <figcaption>Legende: Formulaire de nouvel article rempli (titre, auteur, contenu).</figcaption>
+      </figure>
+      <figure>
+        <img src="image-7.png" alt="article ajoute" />
+        <figcaption>Legende: Verification de l'ajout de l'article dans la liste.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Adresses IP et reseau app_net</h3>
+    <div class="cmd">docker inspect tp3_app --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+docker inspect tp3_db --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+docker network inspect tp3orchestrationavecdockercompose_app_net</div>
+
+    <div class="card">
+      <ul>
+        <li>IP conteneur app: 172.18.0.3</li>
+        <li>IP conteneur db: 172.18.0.2</li>
+        <li>Reseau app_net: bridge, 172.18.0.0/16, gateway 172.18.0.1</li>
+      </ul>
+    </div>
+
+    <div class="grid-2">
+      <figure>
+        <img src="image-9.png" alt="docker inspect ip" />
+        <figcaption>Legende: Adresses IP des conteneurs obtenues avec docker inspect.</figcaption>
+      </figure>
+      <figure>
+        <img src="image-10.png" alt="docker network inspect" />
+        <figcaption>Legende: Details du reseau app_net obtenus avec docker network inspect.</figcaption>
+      </figure>
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>Ce TP a permis de mettre en place une orchestration multi-conteneurs avec Docker Compose, de separer l'application web et la base de donnees, de valider la communication via app_net, et de verifier l'ajout d'articles avec persistance des donnees.</p>
+
+  </main>
+</body>
+</html>
