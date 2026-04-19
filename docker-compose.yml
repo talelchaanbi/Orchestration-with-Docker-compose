@@ -6,7 +6,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app_net
 
@@ -22,6 +23,12 @@ services:
       MYSQL_PASSWORD: test
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
     volumes:
       - db_data:/var/lib/mysql
     networks:

@@ -55,6 +55,7 @@ docker compose up -d --build
 - Ouvre http://localhost:8080
 - Ajoute un article via le formulaire
 - Verifie qu'il apparait dans la liste
+- Au premier lancement, MySQL peut prendre 1 a 3 minutes pour s'initialiser.
 
 ## 4) Verifications utiles
 
